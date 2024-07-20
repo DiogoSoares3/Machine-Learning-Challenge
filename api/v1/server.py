@@ -16,7 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 MODEL = joblib.load('../../aproved_models/model.pk')
 
-app = FastAPI()
+app = FastAPI(title='Machine Learning Model in Production')
 
 
 @app.post('/create-tables', description="Enpoint that creates a PostgreSQl database based on the air_system_present_year.csv file with predictions and predicted probas")
