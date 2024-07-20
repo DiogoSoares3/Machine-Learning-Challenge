@@ -1,8 +1,8 @@
 # Machine Learning Challenge
 
-The description of the problem is write on the PDF file on the root of the project. The code to solve this specific problem was made on the "notebooks" directory. After some interpretation of the problem and some exploratory data analysys, it was made a machine learnig model that could predict, with 95% of recall, new trucks that could have failure on their air system. The PDF file containing the challenge description have 16 question that will be answer below.
+The description of the problem is written in the PDF file in the root of the project. The code to solve this specific problem is in the "notebooks" directory. After some interpretation of the problem and some exploratory data analysis, a machine learning model was created that could predict, with 95% recall, new trucks that could have failures in their air system. The PDF file containing the challenge description has 16 questions that will be answered below.
 
-Since the first 4 questions are related to the problem interpretation, they'll be answered below. The question 5 until 12 will be answered in the notebook file that is into the "notebooks" directory. And finally, questions 13 until 16 will be answered in this README file with mentions to the "api" directory, where the best model chose was put in to production.
+Since the first 4 questions are related to problem interpretation, they'll be answered below. Questions 5 to 12 will be answered in the notebook file in the "notebooks" directory. Finally, questions 13 to 16 will be answered in this README file with references to the "api" directory, where the best chosen model was put into production..
 
 ## Challenge Activities
 
@@ -10,39 +10,39 @@ Since the first 4 questions are related to the problem interpretation, they'll b
 
 What steps would you take to solve this problem? Please describe as completely and clearly as possible all the steps that you see as essential for solving the problem.
 
-- First we need to undestand the problem. In the last 3 years it has been noticing a large increase in the expenses related to the maintenance of the air system of its vehicles, so our job is to help our client to save money by identifying patterns on the features that may end up becoming a problem on the truck's air system. If we could identify a failure on the truck's air system and send directly for maintenance, the client would save $475, for example. That been said, it is clear that the best metric for evaluating a model is the recall, beacause if our model predicts a false positive, the client just looses $10, but if the model predicts false negative, the client looses $475, in other words, our model has to be good at not letting cases of failure in the trucks's air system go unnoticed.
+- First, we need to understand the problem. In the last 3 years, there has been a noticeable increase in expenses related to the maintenance of the air system of vehicles, so our job is to help our client save money by identifying patterns in the features that may end up causing problems in the truck's air system. If we can identify a failure in the truck's air system and send it directly for maintenance, the client would save $475, for example. That being said, it is clear that the best metric for evaluating a model is recall, because if our model predicts a false positive, the client just loses $10, but if the model predicts a false negative, the client loses $475. In other words, our model has to be good at not letting cases of failure in the truck's air system go unnoticed.
 
-- Second we need to take a look on the database sent by the client (air_system_previous_years.csv). We can make a Exploratory Data Analysis to understand more the about the data that we will be into it. Since the features' name are encoded, we can't do much interpretaion of specifics features it self. We need to do a preprocessing on the dataset, like replacing strings "na" with a real NaN, drop columns that have to much missing values, because we can't just do an input with the mean or median of the column when we have so much missing values. Furthermore we need to identify possible categorical features, it was consider categorical variables those that had more than 10 unique values. After the division of categorical variables and numerical variables, we should cast categorical features into to string and numerical features to float. In addition, we should analyse the distribuition of the target variable, if the this variabe is unbalanced, witch is the case, we need to balance it to our model learn all the caracteristics of the two classes.
+- Second, we need to look at the database sent by the client (air_system_previous_years.csv). We can conduct an Exploratory Data Analysis to understand more about the data. Since the feature names are encoded, we can't interpret specific features. We need to preprocess the dataset, such as replacing strings "na" with a real NaN, dropping columns with too many missing values, because we can't just impute them with the mean or median when there are too many missing values. Furthermore, we need to identify possible categorical features, considering variables with more than 10 unique values as categorical. After dividing the categorical and numerical variables, we should cast categorical features to string and numerical features to float. In addition, we should analyze the distribution of the target variable. If it is unbalanced, which is the case, we need to balance it so our model can learn the characteristics of both classes.
 
-- Third step is to train the model. It was made a pipeline that contains several pre-processors like inputers, scalers, over-sampling tecniques, feature selection algorithms, dimensionality reduction algorithms and the machine learning algorithms their selves. The idea of the pipeline is to make the code more professional and replicable, in addiction, the pipeline help us to avoid data leakege, so we can put the train dataset in to the pipeline to train the model and predict new outputs using the pipeline with the test dataset with in an automated way. The pipeline was run with various machine learning models with specific feature selection and dimensionality reduction algorithms. The goal was to find a model that fit more properly in the dataset, and for this was tested several algorithms, like Logistic Regression, Random Forest Classifier, XGBoost Classifier, Gradient Boost Classifier, and others.
+- The third step is to train the model. A pipeline was created that contains several preprocessors like imputers, scalers, over-sampling techniques, feature selection algorithms, dimensionality reduction algorithms, and the machine learning algorithms themselves. The idea of the pipeline is to make the code more professional and replicable. Additionally, the pipeline helps us avoid data leakage, so we can put the training dataset into the pipeline to train the model and predict new outputs using the pipeline with the test dataset in an automated way. The pipeline was run with various machine learning models with specific feature selection and dimensionality reduction algorithms. The goal was to find a model that fits the dataset best, and several algorithms were tested for this, including Logistic Regression, Random Forest Classifier, XGBoost Classifier, Gradient Boost Classifier, and others.
 
-- The fourth step is to do a hyperparameter tuning of the best model chose on the third step. For this, it was used the BayesSearchCV, an optimizator that can smartly choose the best parameters of a model. The Bayes optimizator was not only used to search the best parameters of the model, but also to choose the best parameters to the feature selection and dimensionality reduction algorithms. The final model returned a recall of 0.953 (this model was cross-validated).
+- The fourth step is to perform hyperparameter tuning of the best model chosen in the third step. For this, we used BayesSearchCV, an optimizer that can smartly choose the best parameters of a model. The Bayes optimizer was used not only to search for the best parameters of the model but also to choose the best parameters for the feature selection and dimensionality reduction algorithms. The final model returned a recall of 0.953 (this model was cross-validated).
 
-- On fifth step we test our model. It was made some data tranformation like to drop the same columns that were droped on the training dataset and convert the numerical features to float and categorical features to string (the exacly same tranformation was made in the traning dataset). After this, we put our test dataset into the pipeline to make the predictions. The results were good and show that only 13 of trucks that actually had failure of the air system were not send imediatly to maintenence. The recall of the model on the test dataset was 0.952.
+- In the fifth step, we test our model. Some data transformations were performed, such as dropping the same columns that were dropped in the training dataset and converting the numerical features to float and categorical features to string (the exact same transformations were made in the training dataset). After this, we put our test dataset into the pipeline to make predictions. The results were good and showed that only 13 of the trucks that actually had failures in the air system were not sent immediately to maintenance. The recall of the model on the test dataset was 0.952.
 
-- The last step is to put the model in to production. For this task it was used the FastAPI framework for an API that have some microsservices around the model, like to create a table on a PostgreSQL database of the test dataset containing the true classes, the predicted classes and the predicted probabilitys calculated by the model. The endpoint that creates this can be useful for the client to look to the probability of a truck have or not a failure on the air system. This model's predictions are there to help the decision maker. In addiction, we have another enpoint that can predict if a complete new data (a data without true class) have failure or not on the air systems, returning its prediction and the predicted proba together. We also have a metrics enpoint that make a SQL query to obtain the true positives, true negatives, false positives, false negatives and the total cost if the decision maker had fully followed the model's predictions on the present year. And lastly, we have the model-info endpoint, this microsservice returns the parameters of the pipeline, wicth contains the parameters of the feature selection algorithms, the dimensionality reduction algorithm and the model itself. These two last enpoints could be a good way to identify if a model needs to be retrained.
+- The last step is to put the model into production. For this task, the FastAPI framework was used for an API that has some microservices around the model, such as creating a table in a PostgreSQL database of the test dataset containing the true classes, the predicted classes, and the predicted probabilities calculated by the model. The endpoint that creates this can be useful for the client to look at the probability of a truck having or not having a failure in the air system. These model predictions are there to help the decision-maker. Additionally, we have another endpoint that can predict if completely new data (data without a true class) have failures or not in the air systems, returning its prediction and the predicted probability together. We also have a metrics endpoint that makes an SQL query to obtain the true positives, true negatives, false positives, false negatives, and the total cost if the decision-maker had fully followed the model's predictions for the present year. Lastly, we have the model-info endpoint, which returns the parameters of the pipeline, including the parameters of the feature selection algorithms, the dimensionality reduction algorithm, and the model itself. These last two endpoints could be a good way to identify if a model needs to be retrained.
 
 ### Question 2
 
 Which technical data science metric would you use to solve this challenge? Ex: absolute error, rmse, etc.
 
-- If a truck with defects in the air system is not sent directly for maintenance, the company pays $500, and if a truck is sent for maintenance, but it does not show any defect in this system, the company pays only $10. That indicates us that if the model predicts a false positive, the company will pay just $10, but if the model predicts a false negative, the company will have to pay $500. So with the aim of reducing the company's expenses, the model should minimize the false negatives predictions, and the metric that fits to this problem is the recall. Basically every false negative is equivalent to 50 false positives in cost to the company.
+- If a truck with defects in the air system is not sent directly for maintenance, the company pays $500, and if a truck is sent for maintenance but does not show any defect in this system, the company pays only $10. This indicates that if the model predicts a false positive, the company will pay just $10, but if the model predicts a false negative, the company will have to pay $500. So, with the aim of reducing the company's expenses, the model should minimize false negative predictions, and the metric that fits this problem is recall. Essentially, every false negative is equivalent to 50 false positives in cost to the company.
 
 ### Question 3
 
 Which business metric would you use to solve the challenge?
 
-- The business metric that should be used is the total cost that the company would have compared to the last year. On the test dataset (air_system_present_year.csv) we have to multiply the false negatives by 500, sum this result with the false positives multiplied by 10 and sum it with the true positives multiplied by 25. Doing this, we achive a total cost of $25140 for the present year. If we assume that they will have the same total expendure ($37000) of the last year (2020) and that they follow all the model's predictions, they would save $11860!
+- The business metric that should be used is the total cost that the company would incur compared to last year. On the test dataset (air_system_present_year.csv), we have to multiply the false negatives by 500, sum this result with the false positives multiplied by 10, and sum it with the true positives multiplied by 25. By doing this, we achieve a total cost of $25,140 for the present year. If we assume that they will have the same total expenditure ($37,000) as last year (2020) and that they follow all the model's predictions, they would save $11,860!
 
 ### Question 4
 
 How do technical metrics relate to the business metrics?
 
-- The technical metrics (recall, precison, f1-score) and the business metrics (total cost and saved money) are related when you calculate the cost that a true positive, a false positive and a false negative have. The precison recall metric tries to minimize the false negatives of the model, in other words, try to minimize the $500 expendure. The precison metric trys to minimize the false positives of the model, in other words, try to minimize the $10 expendure. And finally, the f1-score metric trys to get a harmonic mean of the two metrics, so if one of the two metrics are to low, the f1-score will decrease by a lot. On the problem's context, we should use the recall metric to train and avaliate the model, because we are trying to minimize the false negatives, in other words, we are trying to minimize the $500 expendure.
+- The technical metrics (recall, precision, F1-score) and the business metrics (total cost and saved money) are related when you calculate the cost that a true positive, a false positive, and a false negative incur. The precision recall metric tries to minimize the false negatives of the model; in other words, it tries to minimize the $500 expenditure. The precision metric tries to minimize the false positives of the model; in other words, it tries to minimize the $10 expenditure. Finally, the F1-score metric tries to get a harmonic mean of the two metrics, so if one of the two metrics is too low, the F1-score will decrease significantly. In the context of the problem, we should use the recall metric to train and evaluate the model because we are trying to minimize the false negatives; in other words, we are trying to minimize the $500 expenditure.
 
 ### Questions 5 until 12
 
-As mentioned above, these questions are related with more tecnical concepts, so they will be answered on code. The code that contains these answers are located on the "notebooks" directory and inside of the "model_training_and_validation.ipynb" file.
+As mentioned above, these questions are related to more technical concepts, so they will be answered in code. The code that contains these answers is located in the "notebooks" directory inside the "model_training_and_validation.ipynb" file.
 
 ### Question 13
 
@@ -58,41 +58,41 @@ What risks or precautions would you present to the customer before putting this 
 
 If your predictive model is approved, how would you put it into production?
 
-- If the model is approved, I would export the model using the "joblib" or "pickle" package. After this, I would make an API and a database around this model based on the costumer demands. 
+- If the model is approved, I would export the model using the "joblib" or "pickle" package. After this, I would create an API and a database around this model based on the customer demands.
 
 - The main endpoints of the API would be:
 
-    - A 'create-tables' endpoint that could create a PostgreSQl database containing all the test data sent by the costumer (air_system_present_year.csv) with the true labels, the predicted labels and the predicted probabilities. This table would be important for the decision-maker to make graphical analyses in a dashboard such as PowerBI, Qlik Sense or Tableau.
+    - A 'create-tables' endpoint that could create a PostgreSQL database containing all the test data sent by the customer (air_system_present_year.csv) with the true labels, the predicted labels, and the predicted probabilities. This table would be important for the decision-maker to make graphical analyses in a dashboard such as PowerBI, Qlik Sense, or Tableau.
 
-    - A 'predict' enpoint that predicts if a new data is 'neg' or 'pos' with the predicted proba.
+    - A 'predict' endpoint that predicts if new data is 'neg' or 'pos' with the predicted probability.
 
-    - A 'metrics' enpoint that returns the amount of true positives, true negatives, false positives, false negatives and the total cost related to these predictions.
+    - A 'metrics' endpoint that returns the amount of true positives, true negatives, false positives, false negatives, and the total cost related to these predictions.
 
-    - A 'model-info' that could return informations about the model, like its recall and all the best parametersthat went go through the hyperparameter optimization.
+    - A 'model-info' endpoint that could return information about the model, like its recall and all the best parameters that went through the hyperparameter optimization.
 
-    - Note: All these enpoints are located in the 'api/v1' directory.
+    - Note: All these endpoints are located in the 'api/v1' directory.
 
-- Create a 'requirements.txt' containig all of package dependecies
+- Create a 'requirements.txt' containing all package dependencies.
 
-- Containerizate the API. Make a Dockerfile to build an image for the web service (API) and run a docker-compose file to orquestrate the images related to the PostgreSQL database and the web service.
+- Containerize the API. Make a Dockerfile to build an image for the web service (API) and run a docker-compose file to orchestrate the images related to the PostgreSQL database and the web service.
 
 ### Question 15
 
 If the model is in production, how would you monitor it?
 
-- Performance Metrics Monitoring: Monitoring dashboards (e.g., Grafana, Kibana) to visualize performance metrics. Set up alerts to notify when performance metrics fall below a certain threshold.
+- Performance Metrics Monitoring: Use monitoring dashboards (e.g., Grafana, Kibana) to visualize performance metrics. Set up alerts to notify when performance metrics fall below a certain threshold.
 
-- Data Drift and Concept Drift: Libraries such as Evidently AI or River to detect and monitor drift.
+- Data Drift and Concept Drift: Use libraries such as Evidently AI or River to detect and monitor drift.
 
-- Real-time Monitoring: Application Performance Monitoring (APM) tools like Prometheus can be used to monitor latency and throughput. 
+- Real-time Monitoring: Use Application Performance Monitoring (APM) tools like Prometheus to monitor latency and throughput.
 
-- Model Explainability: Changes in feature importance scores over time. Tools like InterpretML provides explanations for model predictions.
+- Model Explainability: Monitor changes in feature importance scores over time. Tools like InterpretML provide explanations for model predictions.
 
 ### Question 16
 
 If the model is in production, how would you know when to retrain it?
 
-- Performance Degradation: The enpoint 'metrics' and model-info could be a good way to analyse a possible degradation of the model. If the model's performance is decreasing.
+- Performance Degradation: The endpoints 'metrics' and 'model-info' could be a good way to analyze possible degradation of the model. If the model's performance is decreasing.
 
 - User feedback about the model's predictions and predicted probabilities.
 
