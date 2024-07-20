@@ -4,3 +4,4 @@ __pycache__*
 .virtual_documents
 catboost_info
 .env
+f1_score_test.ipynb
