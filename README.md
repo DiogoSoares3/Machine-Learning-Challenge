@@ -76,6 +76,8 @@ If your predictive model is approved, how would you put it into production?
 
 - Containerize the API. Make a Dockerfile to build an image for the web service (API) and run a docker-compose file to orchestrate the images related to the PostgreSQL database and the web service.
 
+- Deploy on a cloud service like AWS, GCP or Azure.
+
 ### Question 15
 
 If the model is in production, how would you monitor it?
@@ -124,9 +126,9 @@ To shut down the container, run:
 docker compose down
 ```
 
-### Run locally
+### Run locally option
 
-First you need to create new a database on your PostgreSQl. After that put the database informations on your '.env' file that you created using the '.env.example' as example.
+First you need to create new a database on your PostgreSQl. After that, put the database informations on your '.env' file that you created using the '.env.example' as example.
 
 It's advisable that you create an virtual enviroment to avoid conflicts, so on the root of the project, run:
 
@@ -158,7 +160,12 @@ And lastly, to run the API locally, execute:
 python3 server.py
 ```
 
+To access the documentation of the API, put this url on your browser:
+
+```
+127.0.0.1:8000/docs
+```
+
 ### Test the API
 
-The Postman collection 'Machine_learning_challenge.postman_collection.json' are on the root of the project. Import the collection and try it out!
-
+The Postman collection 'Machine_learning_challenge.postman_collection.json' is on the root of the project. Import the collection and try it out!
