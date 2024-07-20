@@ -19,8 +19,8 @@ MODEL = joblib.load('../../aproved_models/model.pk')
 app = FastAPI()
 
 
-@app.post('/create-tables', description="Enpoint that creates a PostgreSQl database based on the air_system_present_year.csv file with predictions and predited probas")
-async def startup() -> dict:
+@app.post('/create-tables', description="Enpoint that creates a PostgreSQl database based on the air_system_present_year.csv file with predictions and predicted probas")
+async def create_tables() -> dict:
     await create_tables()
     return {'message': "Test dataset with predictions are now in the database!"}
 
@@ -61,7 +61,7 @@ async def metrics(db: AsyncSession = Depends(get_session)) -> MetricsSchema:
 
 
 @app.get('/model-info', response_model=ModelInfoSchema, description="Return the model parameters and the recall metric")
-async def startup() -> ModelInfoSchema:
+async def model_info() -> ModelInfoSchema:
     recall = MODEL.best_score_  # Recall because the model was trained to achieve the best recall
     best_params = dict(MODEL.best_params_)
     
