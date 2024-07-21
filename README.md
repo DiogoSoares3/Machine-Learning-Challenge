@@ -1,8 +1,8 @@
 # Machine Learning Challenge
 
-The description of the problem is written in the PDF file in the root of the project. The code to solve this specific problem is in the "notebooks" directory. After some interpretation of the problem and some exploratory data analysis, a machine learning model was created that could predict, with 95% recall, new trucks that could have failures in their air system. The PDF file containing the challenge description has 16 questions that will be answered below.
+The description of the problem is written in the PDF file in the root of the project. The code to solve this specific problem is in the `notebooks` directory. After some interpretation of the problem and some exploratory data analysis, a machine learning model was created that could predict, with 95% recall, new trucks that could have failures in their air system. The PDF file containing the challenge description has 16 questions that will be answered below.
 
-Since the first 4 questions are related to problem interpretation, they'll be answered below. Questions 5 to 12 will be answered in the notebook file in the "notebooks" directory. Finally, questions 13 to 16 will be answered in this README file with references to the "api" directory, where the best chosen model was put into production..
+Since the first 4 questions are related to problem interpretation, they'll be answered below. Questions 5 to 12 will be answered in the notebook file in the `notebooks` directory. Finally, questions 13 to 16 will be answered in this README file with references to the `api` directory, where the best chosen model was put into production..
 
 ## Challenge Activities
 
@@ -12,7 +12,7 @@ What steps would you take to solve this problem? Please describe as completely a
 
 - First, we need to understand the problem. In the last 3 years, there has been a noticeable increase in expenses related to the maintenance of the air system of vehicles, so our job is to help our client save money by identifying patterns in the features that may end up causing problems in the truck's air system. If we can identify a failure in the truck's air system and send it directly for maintenance, the client would save $475, for example. That being said, it is clear that the best metric for evaluating a model is recall, because if our model predicts a false positive, the client just loses $10, but if the model predicts a false negative, the client loses $475. In other words, our model has to be good at not letting cases of failure in the truck's air system go unnoticed.
 
-- Second, we need to look at the database sent by the client (air_system_previous_years.csv). We can conduct an Exploratory Data Analysis to understand more about the data. Since the feature names are encoded, we can't interpret specific features. We need to preprocess the dataset, such as replacing strings "na" with a real NaN, dropping columns with too many missing values, because we can't just impute them with the mean or median when there are too many missing values. Furthermore, we need to identify possible categorical features, considering variables with more than 10 unique values as categorical. After dividing the categorical and numerical variables, we should cast categorical features to string and numerical features to float. In addition, we should analyze the distribution of the target variable. If it is unbalanced, which is the case, we need to balance it so our model can learn the characteristics of both classes.
+- Second, we need to look at the database sent by the client (`air_system_previous_years.csv`). We can conduct an Exploratory Data Analysis to understand more about the data. Since the feature names are encoded, we can't interpret specific features. We need to preprocess the dataset, such as replacing strings "na" with a real NaN, dropping columns with too many missing values, because we can't just impute them with the mean or median when there are too many missing values. Furthermore, we need to identify possible categorical features, considering variables with more than 10 unique values as categorical. After dividing the categorical and numerical variables, we should cast categorical features to string and numerical features to float. In addition, we should analyze the distribution of the target variable. If it is unbalanced, which is the case, we need to balance it so our model can learn the characteristics of both classes.
 
 - The third step is to train the model. A pipeline was created that contains several preprocessors like imputers, scalers, over-sampling techniques, feature selection algorithms, dimensionality reduction algorithms, and the machine learning algorithms themselves. The idea of the pipeline is to make the code more professional and replicable. Additionally, the pipeline helps us avoid data leakage, so we can put the training dataset into the pipeline to train the model and predict new outputs using the pipeline with the test dataset in an automated way. The pipeline was run with various machine learning models with specific feature selection and dimensionality reduction algorithms. The goal was to find a model that fits the dataset best, and several algorithms were tested for this, including Logistic Regression, Random Forest Classifier, XGBoost Classifier, Gradient Boost Classifier, and others.
 
@@ -42,7 +42,7 @@ How do technical metrics relate to the business metrics?
 
 ### Questions 5 until 12
 
-As mentioned above, these questions are related to more technical concepts, so they will be answered in code. The code that contains these answers is located in the "notebooks" directory inside the "model_training_and_validation.ipynb" file.
+As mentioned above, these questions are related to more technical concepts, so they will be answered in code. The code that contains these answers is located in the `notebooks` directory inside the `model_training_and_validation.ipynb` file.
 
 ### Question 13
 
@@ -58,11 +58,11 @@ What risks or precautions would you present to the customer before putting this 
 
 If your predictive model is approved, how would you put it into production?
 
-- If the model is approved, I would export the model using the "joblib" or "pickle" package. After this, I would create an API and a database around this model based on the customer demands.
+- If the model is approved, I would export the model using the `joblib` or `pickle` package. After this, I would create an API and a database around this model based on the customer demands.
 
 - The main endpoints of the API would be:
 
-    - A 'create-tables' endpoint that could create a PostgreSQL database containing all the test data sent by the customer (air_system_present_year.csv) with the true labels, the predicted labels, and the predicted probabilities. This table would be important for the decision-maker to make graphical analyses in a dashboard such as PowerBI, Qlik Sense, or Tableau.
+    - A 'create-tables' endpoint that could create a PostgreSQL database containing all the test data sent by the customer (`air_system_present_year.csv`) with the true labels, the predicted labels, and the predicted probabilities. This table would be important for the decision-maker to make graphical analyses in a dashboard such as PowerBI, Qlik Sense, or Tableau.
 
     - A 'predict' endpoint that predicts if new data is 'neg' or 'pos' with the predicted probability.
 
@@ -70,7 +70,7 @@ If your predictive model is approved, how would you put it into production?
 
     - A 'model-info' endpoint that could return information about the model, like its recall and all the best parameters that went through the hyperparameter optimization.
 
-    - Note: All these endpoints are located in the 'api/v1' directory.
+    - Note: All these endpoints are located in the `api/v1` directory.
 
 - Create a 'requirements.txt' containing all package dependencies.
 
@@ -106,7 +106,7 @@ If the model is in production, how would you know when to retrain it?
 
 ## How to run the API
 
-First of all, you need to create an '.env' file on the root of the project based on the '.env.example' file.
+First of all, you need to create an `.env` file on the root of the project based on the `.env.example` file.
 
 ### Docker option
 
@@ -128,7 +128,7 @@ docker compose down
 
 ### Run locally option
 
-First you need to create new a database on your PostgreSQl. After that, put the database informations on your '.env' file that you created using the '.env.example' as example.
+First you need to create new a database on your PostgreSQl. After that, put the database informations on your `.env` file that you created using the `.env.example` as example.
 
 It's advisable that you create an virtual enviroment to avoid conflicts, so on the root of the project, run:
 
@@ -168,4 +168,4 @@ To access the documentation of the API, put this url on your browser:
 
 ### Test the API
 
-The Postman collection 'Machine_learning_challenge.postman_collection.json' is on the project's root. Import the collection and try it out!
+The Postman collection `Machine_learning_challenge.postman_collection.json` is on the project's root. Import the collection and try it out!
