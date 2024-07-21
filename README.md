@@ -32,7 +32,7 @@ Which technical data science metric would you use to solve this challenge? Ex: a
 
 Which business metric would you use to solve the challenge?
 
-- The business metric that should be used is the total cost that the company would incur compared to last year. On the test dataset (air_system_present_year.csv), we have to multiply the false negatives by 500, sum this result with the false positives multiplied by 10, and sum it with the true positives multiplied by 25. By doing this, we achieve a total cost of $25,140 for the present year. If we assume that they will have the same total expenditure ($37,000) as last year (2020) and that they follow all the model's predictions, they would save $11,860!
+- The business metric that should be used is the total cost that the company would incur compared to last year. On the test dataset (`air_system_present_year.csv`), we have to multiply the false negatives by 500, sum this result with the false positives multiplied by 10, and sum it with the true positives multiplied by 25. By doing this, we achieve a total cost of $25,140 for the present year. If we assume that they will have the same total expenditure ($37,000) as last year (2020) and that they follow all the model's predictions, they would save $11,860!
 
 ### Question 4
 
