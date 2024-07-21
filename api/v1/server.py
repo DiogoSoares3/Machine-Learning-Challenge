@@ -34,7 +34,7 @@ async def predict(data: List[InputData]) -> OutputData:
 
     prediction = MODEL.predict(df_clean)
     predicted_probas = MODEL.predict_proba(df_clean)
-    pos_proba = predicted_probas[:,1]  ## Predict proba will show us the probability of been 'pos', or 1
+    pos_proba = predicted_probas[:,1]  ## Predict proba will show us the probability of been 'pos'. Values above 0.5 were laballed 'pos' and below 0.5, 'neg'
     prediction = np.where(prediction == 0, 'neg', 'pos')
 
     return {"prediction": prediction.tolist(), "predict_proba": pos_proba.tolist()}
@@ -42,8 +42,12 @@ async def predict(data: List[InputData]) -> OutputData:
 
 @app.get('/metrics', response_model=MetricsSchema, description="Return the metrics of the model. Return the predicted True positives, True negatives, False positives and False negatives, and in addiction, returns the total cost.")
 async def metrics(db: AsyncSession = Depends(get_session)) -> MetricsSchema:
-    response = (await db.execute(text("SELECT COUNT(*), predicted_class, true_class FROM air_system_present_year GROUP BY predicted_class, true_class"))).all()
-    
+    response = (await db.execute(text('''
+                                      SELECT COUNT(*), predicted_class, true_class 
+                                      FROM air_system_present_year 
+                                      GROUP BY predicted_class, true_class
+                                      '''))).all()
+
     results = {}
     for tuple in response:
         if tuple[1] == 'pos' and tuple[2] == 'pos':
@@ -54,7 +58,7 @@ async def metrics(db: AsyncSession = Depends(get_session)) -> MetricsSchema:
             results['false_negatives'] = tuple[0]
         elif tuple[1] == 'pos' and tuple[2] == 'neg':
             results['false_positives'] = tuple[0]
-        
+
     results['total_cost'] = calculate_all_cost(results)
 
     return results
@@ -64,7 +68,7 @@ async def metrics(db: AsyncSession = Depends(get_session)) -> MetricsSchema:
 async def model_info() -> ModelInfoSchema:
     recall = MODEL.best_score_  # Recall because the model was trained to achieve the best recall
     best_params = dict(MODEL.best_params_)
-    
+
     return {'best_recall': recall, 'best_pipeline_params': best_params}
 
 
@@ -75,7 +79,7 @@ def calculate_all_cost(confusion_matrix: dict) -> float:
 
 if __name__ == '__main__':
     import uvicorn
-    
+
     uvicorn.run("server:app", host="127.0.0.1",
                 port=8000, log_level='info',
                 reload=True)

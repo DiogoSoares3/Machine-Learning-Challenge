@@ -168,4 +168,4 @@ To access the documentation of the API, put this url on your browser:
 
 ### Test the API
 
-The Postman collection 'Machine_learning_challenge.postman_collection.json' is on the root of the project. Import the collection and try it out!
+The Postman collection 'Machine_learning_challenge.postman_collection.json' is on the project's root. Import the collection and try it out!
