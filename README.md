@@ -72,7 +72,7 @@ If your predictive model is approved, how would you put it into production?
 
     - Note: All these endpoints are located in the `api/v1` directory.
 
-- Create a 'requirements.txt' containing all package dependencies.
+- Create a `requirements.txt` containing all package dependencies.
 
 - Containerize the API. Make a Dockerfile to build an image for the web service (API) and run a docker-compose file to orchestrate the images related to the PostgreSQL database and the web service.
 
