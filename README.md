@@ -1,6 +1,6 @@
 # Machine Learning Challenge
 
-The description of the problem is written in the PDF file in the root of the project. The code to solve this specific problem is in the `notebooks` directory. After some interpretation of the problem and some exploratory data analysis, a machine learning model was created that could predict, with 95% recall, new trucks that could have failures in their air system. The PDF file containing the challenge description has 16 questions that will be answered below.
+The description of the problem is written in the PDF file in the root of the project (`Challenge description.pdf`). The code to solve this specific problem is in the `notebooks` directory. After some interpretation of the problem and some exploratory data analysis, a machine learning model was created that could predict, with 95% recall, new trucks that could have failures in their air system. The PDF file containing the challenge description has 16 questions that will be answered below.
 
 Since the first 4 questions are related to problem interpretation, they'll be answered below. Questions 5 to 12 will be answered in the notebook file in the `notebooks` directory. Finally, questions 13 to 16 will be answered in this README file with references to the `api` directory, where the best chosen model was put into production..
 
