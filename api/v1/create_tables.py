@@ -31,13 +31,13 @@ async def create_tables() -> None:
         prediction = MODEL.predict(df_clean)
         predicted_probas = MODEL.predict_proba(df_clean)
         
-        df_clean['predicted_class'] = prediction
-        df_clean['predicted_class'] = np.where(df_clean['predicted_class'] == 0, 'neg', 'pos')
-                
-        pos_proba = predicted_probas[:,1] # Predict proba will show us the probability of been 'pos', or 1
-        df_clean["predicted_probas"] = pos_proba
+        new_columns = pd.DataFrame({
+            'predicted_class': np.where(prediction == 0, 'neg', 'pos'),
+            'predicted_probas': predicted_probas[:, 1],  # Predict proba will show us the probability of been 'pos' (1)
+            'true_class': y
+        })
         
-        df_clean['true_class'] = y
+        df_clean = pd.concat([df_clean, new_columns], axis=1)
         
         columns = []
         for col in df_clean.columns:
